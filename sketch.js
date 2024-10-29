@@ -8,6 +8,8 @@ let startAudio = false;
 let inputMic = false;
 let bass, lowMid, mid, highMid, treble;
 let soundAvg;
+sf = [];
+sfIndex = 0;
 
 let spectrum, waveform; // spectrum and waveform
 
@@ -21,9 +23,12 @@ let partyGoers = [];
 
 function preload() {
     sound = loadSound('/assets/i-81-car-pileup.mp3');
-    sf1 = loadImage('/assets/sf1.png');
-    sf2 = loadImage('/assets/sf2.png');
+
     sfAsleep = loadImage('/assets/sfAsleep.png');
+
+    for (let i = 0; i < 2; i++) {
+      sf[i] = loadImage("/assets/sf/" + i + ".png");
+    }
     
     // sound = loadSound('/assets/demoserenade.mp3');
     // sound = loadSound('/assets/smooveguitar.mp3');
@@ -46,8 +51,6 @@ function draw() {
       updateVisuals();
 
       displayScene();
-
-      
     }
 
     if (stopped) {
@@ -65,6 +68,8 @@ function draw() {
     //     text("Input: Music", width * 0.025, height * 0.95);
     //   }
     // }
+
+    image(sf[indexJump])
 }
 
 function updateAudio() {
@@ -101,50 +106,57 @@ function updateVisuals() {
 }
 
 function displayScene() {
-  for (let i = 0; i < sLen; i++) {
-    h = map(spectrum[i], 0, 255, 0, height);
-    push();
-      translate(width/2, height/2);
-      let r = map(i, 0, sLen, 0, TWO_PI);
-      rotate(r-(millis()*turnspeed));
-      let thick = h * 0.005;
-      fill(150);
-      triangle(-5, height-(h*1.05), 0, height, 0 + thick, height);
-      fill(125);
-      triangle(0, height - (h*1.), 0, height, 10 + thick, height);
-      fill(100);
-      triangle(0, height - (h*0.95), 0, height, 15 + thick, height);
-      fill(75);
-      triangle(0, height - (h*0.9), 0, height, 20 + thick, height);
-      fill(0);
-      triangle(0, height - (h*0.85), 0, height, 25 + thick, height);
-    pop();
-  }
-  for ( let i = 0; i < sLen; i++) {
-    h = map(spectrum[i], 0, 255, 0, height);
-    push();
-      translate(width/2, height/2.05);
-      rotate(millis()/25000);
-      push();
-        let r = map(i, 0, sLen, 0, TWO_PI);
-        rotate(r+(millis()/15000));
-        fill(420-h*0.5, h*0.5, 255);
-        noStroke();
-        ellipse(0, (h*0.095)+height/10, (h*50)/width, h*0.33);
-      pop();
-    pop();
-  }
+  // for (let i = 0; i < sLen; i++) {
+  //   h = map(spectrum[i], 0, 255, 0, height);
+  //   push();
+  //     translate(width/2, height/2);
+  //     let r = map(i, 0, sLen, 0, TWO_PI);
+  //     rotate(r-(millis()*turnspeed));
+  //     let thick = h * 0.005;
+  //     fill(150);
+  //     triangle(-5, height-(h*1.05), 0, height, 0 + thick, height);
+  //     fill(125);
+  //     triangle(0, height - (h*1.), 0, height, 10 + thick, height);
+  //     fill(100);
+  //     triangle(0, height - (h*0.95), 0, height, 15 + thick, height);
+  //     fill(75);
+  //     triangle(0, height - (h*0.9), 0, height, 20 + thick, height);
+  //     fill(0);
+  //     triangle(0, height - (h*0.85), 0, height, 25 + thick, height);
+  //   pop();
+  // }
+  // for ( let i = 0; i < sLen; i++) {
+  //   h = map(spectrum[i], 0, 255, 0, height);
+  //   push();
+  //     translate(width/2, height/2.05);
+  //     rotate(millis()/25000);
+  //     push();
+  //       let r = map(i, 0, sLen, 0, TWO_PI);
+  //       rotate(r+(millis()/15000));
+  //       fill(420-h*0.5, h*0.5, 255);
+  //       noStroke();
+  //       ellipse(0, (h*0.095)+height/10, (h*50)/width, h*0.33);
+  //     pop();
+  //   pop();
+  // }
 
-  for (let i = 0; i < wlen; i++) {
-    let y = map(waveform[i], 1, -1, 0, height/20);
-    push();
-      translate(width/2, height/2);
-      let r = map(i, 0, wlen, 0, TWO_PI);
-      rotate(r+millis()/20000);
-      stroke(255);
-      strokeWeight(1);
-      line(0, y, 0, 0);
-    pop();
+  // for (let i = 0; i < wlen; i++) {
+  //   let y = map(waveform[i], 1, -1, 0, height/20);
+  //   push();
+  //     translate(width/2, height/2);
+  //     let r = map(i, 0, wlen, 0, TWO_PI);
+  //     rotate(r+millis()/20000);
+  //     stroke(255);
+  //     strokeWeight(1);
+  //     line(0, y, 0, 0);
+  //   pop();
+  // }
+
+  let img = sf[sfIndex];
+  image(img, width/2, height/2, img.width, img.height);
+  sfIndex++;
+  if (sfIndex >= sf.length) {
+    sfIndex = 0;
   }
 }
 
