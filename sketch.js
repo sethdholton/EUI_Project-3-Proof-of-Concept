@@ -89,11 +89,11 @@ function draw() {
           strokeWeight(4);
           stroke(0);
           fill(255);
-          circle(width*0.3 + tempDisplace, height*0.7, width*0.01);
-          circle(width*0.45 + tempDisplace, height*0.6, width*0.02);
-          circle(width*0.6 + tempDisplace, height*0.55, width*0.05);
-          circle(width*0.9 + tempDisplace, height*0.5, width*0.075);
-          image(thoughtbubble, width*0.9 + tempDisplace, 0, thoughtbubble.width*1.53, thoughtbubble.height*1.53);
+          // circle(width*0.3 + tempDisplace, height*0.7, width*0.01);
+          circle(width*0.45 + tempDisplace, height*0.6, width*0.01);
+          circle(width*0.6 + tempDisplace, height*0.55, width*0.02);
+          circle(width*0.9 + tempDisplace, height*0.5, width*0.05);
+          image(thoughtbubble, width*0.9 + tempDisplace, 0, thoughtbubble.width*1.54, thoughtbubble.height*1.54);
         }
     
       pop();
@@ -169,6 +169,7 @@ function spawnNewPartyGoers() {
   } else if (phase == 1) {
     partyGoers.push(new PartyGoer(width*1.3 + displace, height/2, 3, false));
     partyGoers.push(new PartyGoer(width*0.95 + displace, height/2, 3, true));
+    displaythoughtbubble = false;
     // foreground
     partyGoers.push(new PartyGoer(width*0.5 + displace, height/2, 4, false));
     partyGoers.push(new PartyGoer(width + displace, height/2, 4, false));
@@ -181,7 +182,7 @@ function spawnNewPartyGoers() {
     displaythoughtbubble = true;
   } else if (phase == 3) {
     tempDisplace = displace;
-    phase = 0;
+    phase = -1;
   }
 }
 
