@@ -35,15 +35,15 @@ let sf1, sf2, sfAsleep, thoughtbubble; // image assets
 let partyGoers = [];
 
 function preload() {
-    sound = loadSound('/assets/i-81-car-pileup.mp3');
+    sound = loadSound('./assets/i-81-car-pileup.mp3');
 
-    sfAsleep = loadImage('/assets/sfAsleep.png');
+    sfAsleep = loadImage('./assets/sfAsleep.png');
 
     for (let i = 0; i < 2; i++) {
-      sf[i] = loadImage("/assets/sf/" + i + ".png");
+      sf[i] = loadImage("./assets/sf/" + i + ".png");
     }
 
-    thoughtbubble = loadImage("/assets/thoughtbubble.png");
+    thoughtbubble = loadImage("./assets/thoughtbubble.png");
 }
 
 function setup() {
